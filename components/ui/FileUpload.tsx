@@ -1,5 +1,5 @@
 "use client";
-import { uploadToS3 } from "@/lib/s3";
+import { uploadToS3 } from "../../lib/db/s3";
 import { useMutation } from "@tanstack/react-query";
 import { Inbox, Loader2 } from "lucide-react";
 import React from "react";
@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 const FileUpload = () => {
   const router = useRouter();
   const [uploading, setUploading] = React.useState(false);
-  const { mutate, isLoading } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: async ({
       file_key,
       file_name,
@@ -74,7 +74,7 @@ const FileUpload = () => {
         })}
       >
         <input {...getInputProps()} />
-        {uploading || isLoading ? (
+        {uploading || isPending ? (
           <>
             {/* loading state */}
             <Loader2 className="h-10 w-10 text-blue-500 animate-spin" />

@@ -1,12 +1,12 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@components/ui/button";
 import { UserButton, auth } from "@clerk/nextjs";
 import Link from "next/link";
 import { ArrowRight, LogIn } from "lucide-react";
-import FileUpload from "@/components/FileUpload";
-import { checkSubscription } from "@/lib/subscription";
-import SubscriptionButton from "@/components/SubscriptionButton";
-import { db } from "@/lib/db";
-import { chats } from "@/lib/db/schema";
+import FileUpload from "@/components/ui/FileUpload";
+import { checkSubscription } from "../lib/db/subscription";
+import SubscriptionButton from "@/components/ui/SubscriptionButton";
+import { db } from "../lib/db";
+import { chats } from "../lib/db/schema";
 import { eq } from "drizzle-orm";
 
 export default async function Home() {
