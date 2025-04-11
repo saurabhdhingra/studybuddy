@@ -1,5 +1,5 @@
 "use client";
-import { DrizzleChat } from "../../lib/db/schema";
+import { DrizzleChat } from "../lib/db/schema";
 import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
