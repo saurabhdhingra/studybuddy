@@ -1,7 +1,7 @@
-import ChatComponent from "../components/ui/ChatComponent";
-import ChatSideBar from "../components/ui/ChatSideBar";
-import PDFViewer from "../../components/ui/PDFViewer";
-import { db } from "../lib/db";
+import ChatComponent from "../../../components/ui/ChatComponent";
+import ChatSideBar from "../../../components/ui/ChatSideBar";
+import PDFViewer from "../../../components/ui/PDFViewer";
+import { db } from "../../../lib/db";
 import { chats } from "@/src/lib/db/schema";
 import { checkSubscription } from "@/src/lib/subscription";
 import { useAuth } from "@clerk/nextjs";

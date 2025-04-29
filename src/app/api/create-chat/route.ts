@@ -1,4 +1,4 @@
-import { db } from "@/lib/db";
+import { db } from "../../../lib/db";
 import { chats } from "@/src/lib/db/schema";
 import { loadS3IntoPinecone } from "@/src/lib/pinecone";
 import { getS3Url } from "@/src/lib/s3";
@@ -20,7 +20,7 @@ export async function POST(req: Request, res: Response) {
       .insert(chats)
       .values({
         fileKey: file_key,
-        pdfName: file_name,
+        pdfname: file_name,
         pdfUrl: getS3Url(file_key),
         userId,
       })

@@ -1,4 +1,4 @@
-import { db } from "../../lib/db";
+import { db } from "../../../lib/db";
 import { messages } from "@/src/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";

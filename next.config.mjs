@@ -1,6 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    swcMinify: false // it should be false by default 
+  images: {
+    remotePatterns: [
+      // Add any remote image patterns if needed
+    ],
+  },
+  // Modern optimization features
+  poweredByHeader: false,
+  reactStrictMode: true,
 };
 
 export default nextConfig;
