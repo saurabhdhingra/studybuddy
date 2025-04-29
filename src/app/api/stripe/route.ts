@@ -1,4 +1,4 @@
-import { db } from "../lib/db";
+import { db } from "../../../lib/db";
 import { userSubscriptions } from "@/src/lib/db/schema";
 import { stripe } from "@/src/lib/stripe";
 import { eq } from "drizzle-orm";
