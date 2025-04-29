@@ -35,7 +35,7 @@ export async function POST(req: Request) {
       stripeSubscriptionId: subscription.id,
       stripeCustomerId: subscription.customer as string,
       stripePriceId: subscription.items.data[0].price.id,
-      stripeCurrentPeriodEnd: new Date(subscription.metadata.end * 1000),
+      stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000),
     });
   }
 
@@ -48,7 +48,7 @@ export async function POST(req: Request) {
       .set({
         stripePriceId: subscription.items.data[0].price.id,
         stripeCurrentPeriodEnd: new Date(
-          subscription. * 1000
+          subscription.current_period_end * 1000
         ),
       })
       .where(eq(userSubscriptions.stripeSubscriptionId, subscription.id));

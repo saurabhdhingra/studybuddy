@@ -1,6 +1,6 @@
 import { Pinecone, PineconeRecord } from "@pinecone-database/pinecone";
 import { downloadFromS3 } from "./s3-server";
-import { PDFLoader } from "langchain/document_loaders/fs/pdf";
+import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
 import md5 from "md5";
 import {
   Document,
@@ -11,7 +11,6 @@ import { convertToAscii } from "./utils";
 
 export const getPineconeClient = () => {
   return new Pinecone({
-    environment: process.env.PINECONE_ENVIRONMENT!,
     apiKey: process.env.PINECONE_API_KEY!,
   });
 };
@@ -24,13 +23,13 @@ type PDFPage = {
 };
 
 export async function loadS3IntoPinecone(fileKey: string) {
-  // 1. obtain the pdf -> downlaod and read from pdf
+  // 1. obtain the pdf -> download and read from pdf
   console.log("downloading s3 into file system");
   const file_name = await downloadFromS3(fileKey);
   if (!file_name) {
     throw new Error("could not download from s3");
   }
-  console.log("loading pdf into memory" + file_name);
+  console.log("loading pdf into memory: " + file_name);
   const loader = new PDFLoader(file_name);
   const pages = (await loader.load()) as PDFPage[];
 
@@ -42,12 +41,12 @@ export async function loadS3IntoPinecone(fileKey: string) {
 
   // 4. upload to pinecone
   const client = await getPineconeClient();
-  const pineconeIndex = await client.index("chatpdf");
+  const pineconeIndex = client.index("chatpdf");
   const namespace = pineconeIndex.namespace(convertToAscii(fileKey));
-
+  
   console.log("inserting vectors into pinecone");
   await namespace.upsert(vectors);
-
+  
   return documents[0];
 }
 
@@ -55,7 +54,7 @@ async function embedDocument(doc: Document) {
   try {
     const embeddings = await getEmbeddings(doc.pageContent);
     const hash = md5(doc.pageContent);
-
+    
     return {
       id: hash,
       values: embeddings,
@@ -78,6 +77,7 @@ export const truncateStringByBytes = (str: string, bytes: number) => {
 async function prepareDocument(page: PDFPage) {
   let { pageContent, metadata } = page;
   pageContent = pageContent.replace(/\n/g, "");
+  
   // split the docs
   const splitter = new RecursiveCharacterTextSplitter();
   const docs = await splitter.splitDocuments([
@@ -89,5 +89,6 @@ async function prepareDocument(page: PDFPage) {
       },
     }),
   ]);
+  
   return docs;
 }

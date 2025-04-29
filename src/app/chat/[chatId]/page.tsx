@@ -16,15 +16,17 @@ type Props = {
 };
 
 const ChatPage = async ({ params: { chatId } }: Props) => {
-  const { userId } = await useAuth();
+  const { userId } = useAuth();
   if (!userId) {
     return redirect("/sign-in");
   }
+
   const _chats = await db.select().from(chats).where(eq(chats.userId, userId));
-  if (!_chats) {
+  if (!_chats || _chats.length === 0) {
     return redirect("/");
   }
-  if (!_chats.find((chat: { id: number; }) => chat.id === parseInt(chatId))) {
+
+  if (!_chats.find((chat) => chat.id === parseInt(chatId))) {
     return redirect("/");
   }
 
@@ -39,7 +41,7 @@ const ChatPage = async ({ params: { chatId } }: Props) => {
           <ChatSideBar chats={_chats} chatId={parseInt(chatId)} isPro={isPro} />
         </div>
         {/* pdf viewer */}
-        <div className="max-h-screen p-4 oveflow-scroll flex-[5]">
+        <div className="max-h-screen p-4 overflow-scroll flex-[5]">
           <PDFViewer pdf_url={currentChat?.pdfUrl || ""} />
         </div>
         {/* chat component */}
