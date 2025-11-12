@@ -24,6 +24,7 @@ StudyBuddy is a powerful and intelligent "Chat with PDF" application designed to
 
 StudyBuddy is built with a cutting-edge and robust set of technologies, providing a high-performance, full-stack solution:
 
+```
 Category        Technology              Purpose
 
 Frontend        Next.js, React,         The foundation for the highly performant 
@@ -50,12 +51,13 @@ Payments        Stripe                  Robust platform for handling subscriptio
 
 Data Fetching   @tanstack/react-query,  Powerful tools for managing, caching, and 
                 Axios                   synchronizing server-state in the frontend.
-
+```
 
 ## Folder Structure
 
 The repository follows a standard Next.js structure, organized to promote clarity and maintainability:
 
+```
 studybuddy/
 ├── .drizzle/          # Drizzle migration files
 ├── .next/             # Next.js build output
@@ -78,7 +80,7 @@ studybuddy/
 ├── package.json
 ├── next.config.js
 └── README.md          # This file
-
+```
 
 ## Getting Started
 
