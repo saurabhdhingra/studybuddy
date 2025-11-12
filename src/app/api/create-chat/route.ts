@@ -2,12 +2,12 @@ import { db } from "../../../lib/db";
 import { chats } from "@/src/lib/db/schema";
 import { loadS3IntoPinecone } from "@/src/lib/pinecone";
 import { getS3Url } from "@/src/lib/s3";
-import { useAuth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 // /api/create-chat
 export async function POST(req: Request, res: Response) {
-  const { userId } = await useAuth();
+  const { userId } = await auth();
   if (!userId) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }

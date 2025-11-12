@@ -4,7 +4,7 @@ import PDFViewer from "../../../components/ui/PDFViewer";
 import { db } from "../../../lib/db";
 import { chats } from "@/src/lib/db/schema";
 import { checkSubscription } from "@/src/lib/subscription";
-import { useAuth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -16,7 +16,7 @@ type Props = {
 };
 
 const ChatPage = async ({ params: { chatId } }: Props) => {
-  const { userId } = useAuth();
+  const { userId } = await auth();
   if (!userId) {
     return redirect("/sign-in");
   }

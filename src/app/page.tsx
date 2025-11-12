@@ -1,5 +1,6 @@
 import { Button } from "../../components/ui/button";
-import { UserButton, useAuth } from "@clerk/nextjs";
+import { UserButton } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import Link from "next/link";
 import { ArrowRight, LogIn } from "lucide-react";
 import FileUpload from "../components/ui/FileUpload";
@@ -10,7 +11,7 @@ import { chats } from "@/src/lib/db/schema";
 import { eq } from "drizzle-orm";
 
 export default async function Home() {
-  const { userId } = await useAuth();
+  const { userId } = await auth();
   const isAuth = !!userId;
   const isPro = await checkSubscription();
   let firstChat;

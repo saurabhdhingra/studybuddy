@@ -1,36 +1,172 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# StudyBuddy - Chat with Your PDFs
+
+## Overview
+
+StudyBuddy is a powerful and intelligent "Chat with PDF" application designed to revolutionize the way you interact with your documents. Simply upload a PDF, and start asking questions! Leveraging the latest in AI and web development, StudyBuddy provides instant, accurate, and context-aware answers extracted directly from your study materials, textbooks, or reports.
+
+
+## Key Features
+
+**Intelligent Q&A**: Get answers and summaries from your PDFs using the power of OpenAI's language models.
+
+**Secure Authentication**: User management and security handled seamlessly by Clerk.
+
+**Vector Search**: Utilizes Pinecone for efficient and relevant document indexing and retrieval.
+
+**Modern UI**: A clean, responsive, and visually appealing interface built with Next.js and Tailwind CSS.
+
+**Scalable Architecture**: Serverless database powered by Neon and secure file storage with AWS S3.
+
+**Subscription Model**: Integrated with Stripe for handling premium features and payment processing.
+
+
+## Tech Stack
+
+StudyBuddy is built with a cutting-edge and robust set of technologies, providing a high-performance, full-stack solution:
+
+Category        Technology              Purpose
+
+Frontend        Next.js, React,         The foundation for the highly performant 
+                TypeScript              and scalable web application.
+                
+Styling         Tailwind CSS, clsx,     Utility-first CSS framework for rapid 
+                tailwind-merge          and consistent styling.
+
+Authentication  Clerk                   Secure, full-featured user authentication 
+                                        and management.
+
+Database        PostgreSQL, Neon        Reliable, scalable, and serverless relational 
+                Database Serverless     database.
+
+ORM             Drizzle ORM             TypeScript-first, lightweight ORM for elegant 
+                                        and type-safe database interactions.
+
+API/AI          OpenAI API              Core logic for natural language processing, 
+                                        vector embeddings, and semantic search.
+
+File Storage    AWS SDK (S3)            Secure and scalable object storage for PDF files.
+
+Payments        Stripe                  Robust platform for handling subscriptions and payments.
+
+Data Fetching   @tanstack/react-query,  Powerful tools for managing, caching, and 
+                Axios                   synchronizing server-state in the frontend.
+
+
+## Folder Structure
+
+The repository follows a standard Next.js structure, organized to promote clarity and maintainability:
+
+studybuddy/
+├── .drizzle/          # Drizzle migration files
+├── .next/             # Next.js build output
+├── public/            # Static assets (images, favicon)
+├── src/
+│   ├── app/           # Main application routes and pages
+│   │   ├── (auth)/    # Authentication routes (e.g., sign-in, sign-up)
+│   │   ├── api/       # Next.js API Routes (serverless functions)
+│   │   ├── components/  # Reusable UI components
+│   │   ├── middleware.ts # Clerk middleware for route protection
+│   │   └── layout.tsx # Root layout
+│   ├── config/        # Configuration files (e.g., Stripe, Clerk settings)
+│   ├── db/            # Drizzle ORM setup and schema definition
+│   ├── lib/           # Utility functions, helpers, and third-party service connections
+│   │   ├── aws.ts     # AWS S3 upload/download logic
+│   │   ├── pinecone.ts# Pinecone vector indexing logic
+│   │   └── utils.ts   # General utility functions
+│   └── styles/        # Global styles and Tailwind configuration
+├── .env.local.example # Example environment variables file
+├── package.json
+├── next.config.js
+└── README.md          # This file
+
 
 ## Getting Started
 
-First, run the development server:
+Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+You will need the following accounts and keys:
+
+- Node.js (v18+) and npm/yarn
+
+- OpenAI API Key
+
+- Pinecone API Key and Environment
+
+- Clerk Integration Keys
+
+- Stripe Publishable/Secret Keys
+
+- AWS S3 Bucket and Access Keys
+
+- Neon Database Connection URL
+
+1. Installation
+
+```
+# Clone the repository
+git clone [https://github.com/saurabhdhingra/studybuddy.git](https://github.com/saurabhdhingra/studybuddy.git)
+cd studybuddy
+
+# Install dependencies
+npm install 
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2. Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Create a file named .env.local in the root directory and populate it with your keys (copying from .env.local.example):
 
-## Learn More
+```
+# Clerk
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_key
+CLERK_SECRET_KEY=your_key
 
-To learn more about Next.js, take a look at the following resources:
+# Database (Neon/PostgreSQL)
+DATABASE_URL=your_neon_connection_string
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# OpenAI
+OPENAI_API_KEY=your_key
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+# Pinecone
+PINECONE_API_KEY=your_key
+PINECONE_ENVIRONMENT=your_env
 
-## Deploy on Vercel
+# AWS S3
+S3_ACCESS_KEY_ID=your_key
+S3_SECRET_ACCESS_KEY=your_key
+S3_BUCKET_NAME=your_bucket_name
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Stripe
+STRIPE_SECRET_KEY=your_key
+STRIPE_WEBHOOK_SECRET=your_key
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_key
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+# Application Settings
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
+
+3. Database Setup
+
+Run the following commands to push your Drizzle schema to your Neon database and generate migration files:
+
+```
+# Push schema to the database
+npx drizzle-kit push:pg
+
+# (Optional) Generate a migration
+npx drizzle-kit generate:pg
+```
+
+4. Running the Application
+
+```
+# Start the development server
+npm run dev
+```
+
+Open http://localhost:3000 in your browser.
+
+## Contribution
+
+Contributions are always welcome! Feel free to open an issue or submit a pull request if you find a bug or have an idea for an improvement.
+
