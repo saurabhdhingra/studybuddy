@@ -5,7 +5,6 @@ import React from "react";
 import { Button } from "../../../components/ui/button";
 import { MessageCircle, PlusCircle } from "lucide-react";
 import { cn } from "@/src/lib/utils";
-import axios from "axios";
 import SubscriptionButton from "./SubscriptionButton";
 
 type Props = {
@@ -18,15 +17,18 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
   const [loading, setLoading] = React.useState(false);
 
   return (
-    <div className="w-full max-h-screen overflow-scroll soff p-4 text-gray-200 bg-gray-900">
+    <div className="w-full h-full overflow-y-auto p-4 text-gray-200 bg-gray-900">
+      
+      {/* New Chat Button (Fixed at the top) */}
       <Link href="/">
-        <Button className="w-full border-dashed border-white border">
+        <Button className="w-full border-dashed border-white border mb-4">
           <PlusCircle className="mr-2 w-4 h-4" />
           New Chat
         </Button>
       </Link>
 
-      <div className="flex max-h-screen overflow-scroll pb-20 flex-col gap-2 mt-4">
+      {/* Chat List Container */}
+      <div className="flex flex-col gap-2">
         {chats.map((chat) => (
           <Link key={chat.id} href={`/chat/${chat.id}`}>
             <div
@@ -44,7 +46,10 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
         ))}
       </div>
 
-   
+      {/* Subscription Button/Status (Fixed at the bottom via layout) */}
+      {/* <div className="absolute bottom-0 left-0 w-full p-4 bg-gray-900 border-t border-gray-700">
+        <SubscriptionButton isPro={isPro} />
+      </div> */}
     </div>
   );
 };

@@ -8,6 +8,7 @@ import {
 } from "@pinecone-database/doc-splitter";
 import { getEmbeddings } from "./embeddings";
 import { convertToAscii } from "./utils";
+import * as fs from 'fs/promises';
 
 export const getPineconeClient = () => {
   return new Pinecone({

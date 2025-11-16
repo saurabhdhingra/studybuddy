@@ -20,8 +20,12 @@ export default function RootLayout({
     <ClerkProvider>
       <Providers>
         <html lang="en">
-          <body className={inter.className}>{children}</body>
-          <Toaster />
+          {/* 1. Set the body to h-full for full screen height support (Fixes previous layout issue) */}
+          <body className={`${inter.className} h-full`}>
+            {children}
+            {/* 2. FIX: Toaster must be rendered inside the <body> tag */}
+            <Toaster />
+          </body>
         </html>
       </Providers>
     </ClerkProvider>

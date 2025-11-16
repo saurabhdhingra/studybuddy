@@ -1,4 +1,4 @@
-import { PineconeClient } from "@pinecone-database/pinecone";
+import { Pinecone } from "@pinecone-database/pinecone"; // 🎯 FIX 1: Import the correct class name
 import { convertToAscii } from "./utils";
 import { getEmbeddings } from "./embeddings";
 
@@ -7,17 +7,20 @@ export async function getMatchesFromEmbeddings(
   fileKey: string
 ) {
   try {
-    const client = new Pinecone({
-      environment: process.env.PINECONE_ENVIRONMENT!,
+    const client = new Pinecone({ 
       apiKey: process.env.PINECONE_API_KEY!,
     });
-    const pineconeIndex = await client.index("chatpdf");
+    
+    const pineconeIndex = client.index("studybuddy"); 
+    
     const namespace = pineconeIndex.namespace(convertToAscii(fileKey));
+    
     const queryResult = await namespace.query({
       topK: 5,
       vector: embeddings,
       includeMetadata: true,
     });
+    
     return queryResult.matches || [];
   } catch (error) {
     console.log("error querying embeddings", error);
