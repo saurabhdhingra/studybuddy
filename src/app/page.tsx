@@ -5,7 +5,6 @@ import Link from "next/link";
 import { ArrowRight, LogIn } from "lucide-react";
 import FileUpload from "../components/ui/FileUpload";
 import { checkSubscription } from "@/src/lib/subscription";
-import SubscriptionButton from "../components/ui/SubscriptionButton";
 import { db } from "../lib/db";
 import { chats } from "@/src/lib/db/schema";
 import { eq } from "drizzle-orm";
@@ -38,9 +37,9 @@ export default async function Home() {
                     Go to Chats <ArrowRight className="ml-2" />
                   </Button>
                 </Link>
-                <div className="ml-3">
+                {/* <div className="ml-3">
                   <SubscriptionButton isPro={isPro} />
-                </div>
+                </div> */}
               </>
             )}
           </div>
