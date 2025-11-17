@@ -2,7 +2,7 @@
 
 ## Overview
 
-StudyBuddy is a powerful and intelligent "Chat with PDF" application designed to revolutionize the way you interact with your documents. Simply upload a PDF, and start asking questions! Leveraging the latest in AI and web development, StudyBuddy provides instant, accurate, and context-aware answers extracted directly from your study materials, textbooks, or reports.
+StudyBuddy is a powerful and intelligent "Chat with PDF" application designed to revolutionize the way you interact with your documents. Simply upload a PDF, and start asking questions! Leveraging the latest in AI and web development, StudyBuddy provides instant, accurate, and context-aware answers extracted directly from your study materials, textbooks, or reports. [Demo Video](https://drive.google.com/file/d/1wmD3MgjTXDs7x_Dngl8UWu8-JbzW-e3x/view?usp=share_link)
 
 ![unnamed](https://github.com/user-attachments/assets/7e4927cd-cf14-456c-95c6-3ea3586ea943)
 
